@@ -15,7 +15,6 @@ function updateContent(lang) {
     content.innerHTML = `
         <h2 data-aos="fade-down">${data.welcome.replace(/(edith537)/gi, (match) => `<span class="highlight">${match}</span>`)}</h2>
         <p data-aos="fade-up">${data.description}</p>
-        <h3 data-aos="fade-up">FAQ</h3>
         <div class="faq-container">
             ${data.faq.map((item, index) => `
                 <div class="faq-item" data-aos="fade-up" data-aos-delay="${index * 30}">
@@ -31,6 +30,14 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
         const lang = e.target.dataset.lang;
         updateContent(lang);
+        
+        // 모든 버튼에서 active 클래스 제거
+        document.querySelectorAll('.lang-btn').forEach(button => {
+            button.classList.remove('active');
+        });
+        
+        // 클릭한 버튼에 active 클래스 추가
+        e.target.classList.add('active');
     });
 });
 
@@ -40,7 +47,7 @@ updateContent(currentLang);
 let lastScrollTop = 0;
 const header = document.querySelector('header');
 
-window.addEventListener('scroll', function() {
+function handleScroll() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const maxOpacity = 1;
     const minOpacity = 0;
@@ -58,4 +65,8 @@ window.addEventListener('scroll', function() {
         header.style.opacity = opacity;
     }
     lastScrollTop = scrollTop;
+}
+
+window.addEventListener('scroll', function() {
+    requestAnimationFrame(handleScroll);
 }); 
