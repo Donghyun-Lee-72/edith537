@@ -276,7 +276,7 @@ footer {
 
 .social-icon {
     width: 30px; /* 아이콘 크기를 조정 */
-    height: auto;
+    height: 30px;
     margin: 0 10px; /* 이미지 간격 조정 */
     transition: transform 0.2s; /* 호버 효과 */
     will-change: transform;
@@ -284,5 +284,5 @@ footer {
 }
 
 .social-icon:hover {
-    transform: scale(1.1); /* 호버 시 크기 증가 */
+    transform: scale(1.2); /* 호버 시 크기 증가 */
 }
