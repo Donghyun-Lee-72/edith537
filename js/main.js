@@ -25,8 +25,9 @@ function updateContent(lang) {
         if (!data) throw new Error(`Translation not found for language: ${lang}`);
         
         content.innerHTML = `
-            <h2 data-aos="fade-down">${sanitizeHTML(data.welcome.replace(/(edith537)/gi, 
-                (match) => `<span class="highlight">${match}</span>`))}</h2>
+            <h2 data-aos="fade-down">
+                ${data.welcome.replace(/edith537/gi, '<span class="highlight">Edith537</span>')}
+            </h2>
             <p data-aos="fade-up">${sanitizeHTML(data.description)}</p>
             <div class="faq-container">
                 ${data.faq.map((item, index) => `
