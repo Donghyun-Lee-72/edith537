@@ -170,7 +170,7 @@ header {
 
 footer {
     text-align: center;
-    padding: 2rem;
+    padding: 1rem;
     margin-top: 3rem;
     background-color: #fff;
     width: 100%;
@@ -251,4 +251,23 @@ footer {
     background-clip: text;
     text-fill-color: transparent;
     -webkit-text-fill-color: transparent;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.social-icon {
+    width: 30px; /* 아이콘 크기를 조정 */
+    height: auto;
+    margin: 0 10px; /* 이미지 간격 조정 */
+    transition: transform 0.2s; /* 호버 효과 */
+}
+
+.social-icon:hover {
+    transform: scale(1.1); /* 호버 시 크기 증가 */
 }

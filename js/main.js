@@ -1,6 +1,6 @@
 import translations from '../data/translations.js';
 
-let currentLang = 'ko';
+let currentLang = 'en';
 
 // 배경 요소 생성
 const backgroundDiv = document.createElement('div');
@@ -69,4 +69,7 @@ function handleScroll() {
 
 window.addEventListener('scroll', function() {
     requestAnimationFrame(handleScroll);
-}); 
+});
+
+// 기본 언어 버튼에 active 클래스 추가
+document.querySelector(`.lang-btn[data-lang="${currentLang}"]`).classList.add('active');
