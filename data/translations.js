@@ -1,3 +1,5 @@
+const ONLINE_STORE_URL = 'https://smartstore.naver.com/edith537';
+
 const translations = {
     ko: {
         welcome: "안녕하세요! Edith537 기념품 상점입니다.",
@@ -29,7 +31,7 @@ const translations = {
             },
             {
                 q: "온라인 쇼핑몰이 있나요?",
-                a: '네, <a href="https://smartstore.naver.com/edith537" target="_blank">온라인 쇼핑몰</a>이 있습니다.'
+                a: `네, <a href="${ONLINE_STORE_URL}" target="_blank">온라인 쇼핑몰</a>이 있습니다.`
             },
             {
                 q: "현금 결제랑 카드 결제 가능한가요?",
@@ -75,7 +77,7 @@ const translations = {
             },
             {
                 q: "Do you have an online store?",
-                a: 'Yes, we have an <a href="https://smartstore.naver.com/edith537" target="_blank">online shop</a>.'
+                a: 'Yes, we have an <a href="' + ONLINE_STORE_URL + '" target="_blank">online shop</a>.'
             },
             {
                 q: "Can I pay with cash or card?",
@@ -121,7 +123,7 @@ const translations = {
             },
             {
                 q: "你们有在线商店吗？",
-                a: '有，<a href="https://smartstore.naver.com/edith537" target="_blank">在线商店</a>。'
+                a: '有，<a href="' + ONLINE_STORE_URL + '" target="_blank">在线商店</a>。'
             },
             {
                 q: "可以使用现金或信用卡支付吗？",
@@ -167,7 +169,7 @@ const translations = {
             },
             {
                 q: "オンラインショップはありますか？",
-                a: 'はい、<a href="https://smartstore.naver.com/edith537" target="_blank">オンラインショップ</a>があります。'
+                a: 'はい、<a href="' + ONLINE_STORE_URL + '" target="_blank">オンラインショップ</a>があります。'
             },
             {
                 q: "現金とカードで支払いはできますか？",

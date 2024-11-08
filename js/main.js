@@ -7,23 +7,40 @@ const backgroundDiv = document.createElement('div');
 backgroundDiv.className = 'background';
 document.body.appendChild(backgroundDiv); // body에 배경 요소 추가
 
+// Security: Add HTML sanitization except for specific FAQ answers that contain links
+function sanitizeHTML(str, allowHTML = false) {
+    if (allowHTML) return str;
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
 function updateContent(lang) {
-    currentLang = lang;
-    const content = document.getElementById('content');
-    const data = translations[lang];
-    
-    content.innerHTML = `
-        <h2 data-aos="fade-down">${data.welcome.replace(/(edith537)/gi, (match) => `<span class="highlight">${match}</span>`)}</h2>
-        <p data-aos="fade-up">${data.description}</p>
-        <div class="faq-container">
-            ${data.faq.map((item, index) => `
-                <div class="faq-item" data-aos="fade-up" data-aos-delay="${index * 30}">
-                    <h4>${item.q}</h4>
-                    <p>${item.a}</p>
-                </div>
-            `).join('')}
-        </div>
-    `;
+    try {
+        currentLang = lang;
+        const content = document.getElementById('content');
+        if (!content) throw new Error('Content element not found');
+        
+        const data = translations[lang];
+        if (!data) throw new Error(`Translation not found for language: ${lang}`);
+        
+        content.innerHTML = `
+            <h2 data-aos="fade-down">${sanitizeHTML(data.welcome.replace(/(edith537)/gi, 
+                (match) => `<span class="highlight">${match}</span>`))}</h2>
+            <p data-aos="fade-up">${sanitizeHTML(data.description)}</p>
+            <div class="faq-container">
+                ${data.faq.map((item, index) => `
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="${index * 30}">
+                        <h4>${sanitizeHTML(item.q)}</h4>
+                        <p>${sanitizeHTML(item.a, true)}</p>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    } catch (error) {
+        console.error('Error updating content:', error);
+        if (lang !== 'en') updateContent('en');
+    }
 }
 
 document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -67,9 +84,21 @@ function handleScroll() {
     lastScrollTop = scrollTop;
 }
 
-window.addEventListener('scroll', function() {
+// 스크롤 이벤트 쓰로틀링
+function throttle(func, limit) {
+    let inThrottle;
+    return function(...args) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    }
+}
+
+window.addEventListener('scroll', throttle(function() {
     requestAnimationFrame(handleScroll);
-});
+}, 100));
 
 // 기본 언어 버튼에 active 클래스 추가
 document.querySelector(`.lang-btn[data-lang="${currentLang}"]`).classList.add('active');
