@@ -69,37 +69,27 @@ function handleScroll() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const maxOpacity = 1;
     const minOpacity = 0;
-    const fadeDistance = 100; // 스크롤 거리
+    const fadeDistance = 100; // Distance to fade
 
     if (scrollTop === 0) {
-        header.style.opacity = maxOpacity; // 스크롤이 맨 위일 때 상단바를 완전히 보이게 설정
+        header.style.opacity = maxOpacity; // Fully visible at the top
+        header.style.pointerEvents = 'auto'; // Enable pointer events
     } else if (scrollTop > lastScrollTop) {
-        // 스크롤 내릴 때
+        // Scrolling down
         const opacity = Math.max(minOpacity, maxOpacity - (scrollTop / fadeDistance));
         header.style.opacity = opacity;
+        header.style.pointerEvents = opacity === 0 ? 'none' : 'auto'; // Disable pointer events when fully faded
     } else {
-        // 스크롤 올릴 때
-        const opacity = Math.min(maxOpacity, minOpacity + (scrollTop / fadeDistance));
-        header.style.opacity = opacity;
+        // Scrolling up
+        header.style.opacity = maxOpacity; // Show header
+        header.style.pointerEvents = 'auto'; // Enable pointer events
     }
     lastScrollTop = scrollTop;
 }
 
-// 스크롤 이벤트 쓰로틀링
-function throttle(func, limit) {
-    let inThrottle;
-    return function(...args) {
-        if (!inThrottle) {
-            func.apply(this, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    }
-}
-
-window.addEventListener('scroll', throttle(function() {
+window.addEventListener('scroll', function() {
     requestAnimationFrame(handleScroll);
-}, 100));
+});
 
 // 기본 언어 버튼에 active 클래스 추가
 document.querySelector(`.lang-btn[data-lang="${currentLang}"]`).classList.add('active');
